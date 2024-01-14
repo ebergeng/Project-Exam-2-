@@ -48,6 +48,11 @@ const ModalContent = styled(({ isClosing, ...divProps }) => (
   top: 0;
   animation: ${(props) => (props.isClosing ? slideOut : slideIn)} 0.3s ease-out
     forwards;
+
+  @media (max-width: 480px) {
+    left: 0;
+    width: auto;
+  }
 `;
 
 const CloseButton = styled.button`
