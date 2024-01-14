@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import HeaderNav from "./HeaderNav";
 
 const HeaderContainer = styled.header`
   background-color: var(--color-primary);
@@ -6,7 +7,11 @@ const HeaderContainer = styled.header`
 `;
 
 const Header = () => {
-  return <HeaderContainer></HeaderContainer>;
+  return (
+    <HeaderContainer>
+      <HeaderNav />
+    </HeaderContainer>
+  );
 };
 
 export default Header;

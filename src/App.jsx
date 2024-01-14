@@ -1,7 +1,17 @@
-import Header from "./js/components/header/Header";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import LayOut from "./js/layout/Layout";
+import HomePage from "./js/pages/HomePage";
 
 function App() {
-  return <Header></Header>;
+  return (
+    <BrowserRouter>
+      <LayOut>
+        <Routes>
+          <Route index element={<HomePage />} />
+        </Routes>
+      </LayOut>
+    </BrowserRouter>
+  );
 }
 
 export default App;
