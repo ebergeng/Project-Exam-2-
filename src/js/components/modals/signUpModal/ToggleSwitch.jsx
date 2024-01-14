@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import useManagerStateStore from "./ManagerState";
 
 const ToggleContainer = styled.div`
   display: flex;
@@ -75,9 +76,12 @@ const Toggle = styled.div`
 const ToggleSwitch = () => {
   const [managerState, setManagerState] = useState(() => {
     const saved = localStorage.getItem("managerState");
-    console.log(saved);
     return saved === "true" ? true : false;
   });
+
+  const newManagerState = useManagerStateStore(
+    (state) => state.setManagerState,
+  );
 
   useEffect(() => {
     localStorage.setItem("managerState", managerState);
@@ -103,6 +107,7 @@ const ToggleSwitch = () => {
   }, [managerState]);
 
   const toggleClick = () => {
+    newManagerState();
     setManagerState(!managerState);
   };
 

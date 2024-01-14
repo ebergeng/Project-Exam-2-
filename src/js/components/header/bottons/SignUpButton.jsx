@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import Modal from "../../modals/Modal";
-import SignUpModalContent from "../../modals/signInModal/SignUpModalContent";
+import SignUpModalContent from "../../modals/signUpModal/SignUpModalContent";
 
 const Button = styled.button`
   background-color: transparent;

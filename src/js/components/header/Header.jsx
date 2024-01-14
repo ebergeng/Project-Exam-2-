@@ -2,7 +2,7 @@ import styled from "styled-components";
 import HeaderNav from "./HeaderNav";
 
 const HeaderContainer = styled.header`
-  background-color: var(--color-primary);
+  background-color: #003366;
   min-height: 55px;
 `;
 

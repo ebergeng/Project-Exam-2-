@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled, { keyframes } from "styled-components";
+import BackArrowIcon from "../icons/BackArrowIcon";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -41,8 +42,7 @@ const ModalContent = styled(({ isClosing, ...divProps }) => (
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   height: 100%;
-  width: 400px;
-
+  width: 350px;
   position: fixed;
   right: 0;
   top: 0;
@@ -54,6 +54,8 @@ const CloseButton = styled.button`
   position: absolute;
   top: 10px;
   left: 10px;
+  background-color: transparent;
+  border: none;
 `;
 
 // eslint-disable-next-line react/prop-types
@@ -73,7 +75,9 @@ const Modal = ({ isOpen, onClose, children }) => {
   return (
     <ModalOverlay onClick={handleClose}>
       <ModalContent onClick={(e) => e.stopPropagation()} isClosing={isClosing}>
-        <CloseButton onClick={handleClose}>&times;</CloseButton>
+        <CloseButton onClick={handleClose}>
+          <BackArrowIcon />
+        </CloseButton>
         {children}
       </ModalContent>
     </ModalOverlay>
