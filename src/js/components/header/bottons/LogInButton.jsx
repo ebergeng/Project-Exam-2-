@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import Modal from "../../modals/Modal";
+import LoginModalContent from "../../modals/loginModal/LoginModalContent";
 
 const Button = styled.button`
   background-color: transparent;
@@ -18,7 +19,7 @@ const LoginButton = () => {
     <>
       <Button onClick={openModal}>Log In</Button>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h1>Log In Modal</h1>
+        <LoginModalContent />
       </Modal>
     </>
   );
