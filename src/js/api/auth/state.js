@@ -1,3 +1,5 @@
 import { load } from "../../storage/load";
 
-export const isLoggedIn = () => Boolean(load("accessToken"));
+export const checkLoginStatus = () => Boolean(load("accessToken"));
+
+export const checkManagerStatus = () => Boolean(load("managerState"));

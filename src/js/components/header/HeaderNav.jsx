@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import LoginButton from "./bottons/LogInButton";
 import SignUpButton from "./bottons/SignUpButton";
+import profileStore from "../../storage/profileStore";
+import ProfileButton from "./bottons/ProfileButton";
 
 const Nav = styled.nav`
   display: flex;
@@ -18,16 +20,28 @@ const Li = styled.li`
 `;
 
 const HeaderNav = () => {
+  const { isLoggedIn } = profileStore();
+
   return (
     <Nav>
       <Link to={"/"}>LOGO</Link>
       <Ul>
-        <Li>
-          <LoginButton />
-        </Li>
-        <Li>
-          <SignUpButton />
-        </Li>
+        {isLoggedIn ? (
+          <>
+            <Li>
+              <ProfileButton />
+            </Li>
+          </>
+        ) : (
+          <>
+            <Li>
+              <LoginButton />
+            </Li>
+            <Li>
+              <SignUpButton />
+            </Li>
+          </>
+        )}
       </Ul>
     </Nav>
   );

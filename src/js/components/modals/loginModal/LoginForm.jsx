@@ -11,8 +11,10 @@ import Loader from "../../common/Loader.jsx";
 import DisplayMessage from "../../common/DisplayMessage.jsx";
 import { save } from "../../../storage/save.js";
 import { loginUser } from "../../../api/auth/loginUser.js";
+import profileStore from "../../../storage/profileStore.jsx";
 
 const LoginForm = () => {
+  const { setIsLoggedIn, setManagerState } = profileStore();
   const { setIsClosing } = useModalStore();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -41,16 +43,18 @@ const LoginForm = () => {
         setError(logIn.errors[0].message);
       } else {
         save("accessToken", logIn.accessToken);
+        save("managerState", logIn.venueManager);
       }
     } catch (err) {
       console.error(err);
       setError(true);
     } finally {
       if (!logIn.errors) {
-        setTimeout(() => {
-          setIsClosing(true);
-        }, 1000);
+        setIsLoggedIn(true);
+        setIsClosing(true);
+        setManagerState(logIn.venueManager);
       }
+      setIsLoading(false);
     }
   };
 
