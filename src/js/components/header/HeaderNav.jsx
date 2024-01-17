@@ -8,7 +8,7 @@ import ProfileButton from "./bottons/ProfileButton";
 const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
-  height: 250px;
+  height: 55px;
 `;
 
 const Ul = styled.ul`
