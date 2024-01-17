@@ -37,7 +37,9 @@ const Container = styled.div`
 
 // eslint-disable-next-line react/prop-types
 const DisplayMessage = ({ children, msgType }) => {
-  return <Container $state={msgType}>{children}</Container>;
+  if (children) {
+    return <Container $state={msgType}>{children}</Container>;
+  }
 };
 
 export default DisplayMessage;

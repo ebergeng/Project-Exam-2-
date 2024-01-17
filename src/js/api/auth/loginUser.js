@@ -1,5 +1,5 @@
-export async function registerUser(profile) {
-  const url = "https://api.noroff.dev/api/v1/holidaze/auth/register";
+export async function loginUser(profile) {
+  const url = "https://api.noroff.dev/api/v1/holidaze/auth/login";
 
   const options = {
     headers: {
@@ -11,6 +11,5 @@ export async function registerUser(profile) {
 
   const respons = await fetch(url, options);
   const json = await respons.json();
-  console.log(json.statusCode);
   return json;
 }

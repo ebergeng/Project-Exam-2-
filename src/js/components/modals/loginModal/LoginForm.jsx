@@ -1,14 +1,21 @@
 import { useState } from "react";
 import { FormButton } from "../../buttons/FormButton";
-
 import {
   Input,
   FormContainer,
   FormWrapper,
   Lable,
 } from "../../styles/common/formStyles";
+import useModalStore from "../modalstore/useModalStore.jsx";
+import Loader from "../../common/Loader.jsx";
+import DisplayMessage from "../../common/DisplayMessage.jsx";
+import { save } from "../../../storage/save.js";
+import { loginUser } from "../../../api/auth/loginUser.js";
 
 const LoginForm = () => {
+  const { setIsClosing } = useModalStore();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -23,10 +30,33 @@ const LoginForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form-data:", form);
+    setIsLoading(true);
+
+    const logIn = await loginUser(form);
+
+    try {
+      if (logIn.errors) {
+        setError(logIn.errors[0].message);
+      } else {
+        save("accessToken", logIn.accessToken);
+      }
+    } catch (err) {
+      console.error(err);
+      setError(true);
+    } finally {
+      if (!logIn.errors) {
+        setTimeout(() => {
+          setIsClosing(true);
+        }, 1000);
+      }
+    }
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <FormContainer>
@@ -51,8 +81,12 @@ const LoginForm = () => {
           value={form.password}
           onChange={handleChange}
           required
+          style={{ marginBottom: 20 }}
         />
-        <FormButton style={{ marginTop: 40 }}>Log In</FormButton>
+        <DisplayMessage style={{ display: "none" }} msgType={"alert"}>
+          {error}
+        </DisplayMessage>
+        <FormButton style={{ marginTop: 20 }}>Log In</FormButton>
       </FormWrapper>
     </FormContainer>
   );
