@@ -1,6 +1,7 @@
-import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import BackArrowIcon from "../icons/BackArrowIcon";
+import useModalStore from "./modalstore/useModalStore";
+import { useEffect } from "react";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -8,7 +9,7 @@ const ModalOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: right;
   align-items: center;
@@ -66,7 +67,7 @@ const CloseButton = styled.button`
 // eslint-disable-next-line react/prop-types
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
-  const [isClosing, setIsClosing] = useState(false);
+  const { isClosing, setIsClosing } = useModalStore();
 
   const handleClose = () => {
     setIsClosing(true);
@@ -76,6 +77,15 @@ const Modal = ({ isOpen, onClose, children }) => {
       onClose();
     }, 250);
   };
+
+  useEffect(() => {
+    if (isClosing) {
+      setTimeout(() => {
+        setIsClosing(false);
+        onClose();
+      }, 250);
+    }
+  });
 
   return (
     <ModalOverlay onClick={handleClose}>

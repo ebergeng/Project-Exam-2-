@@ -10,7 +10,6 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30%;
 `;
 
 const SignUpModalHeader = () => {

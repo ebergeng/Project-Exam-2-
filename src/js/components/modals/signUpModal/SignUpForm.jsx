@@ -6,8 +6,28 @@ import {
   FormWrapper,
   Lable,
 } from "../../styles/common/formStyles";
+import DisplayMessage from "../../common/DisplayMessage";
+import Loader from "../../common/Loader";
+import styled from "styled-components";
+import { PrimaryButton } from "../../buttons/PrimaryButton";
+import useModalStore from "../modalstore/useModalStore";
+
+const Container = styled.div`
+  width: 100%;
+  color: white;
+  font-size: 1.1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+`;
 
 const SingUpForm = () => {
+  const { setIsClosing } = useModalStore();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRegisterd, setIsRegisterd] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -26,12 +46,55 @@ const SingUpForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setIsLoading(true);
+    setErrorMessage("");
     e.preventDefault();
     form.venueManager =
       localStorage.getItem("managerState") === "false" ? false : true;
-    console.log("form-data:", form);
+
+    const url = "https://api.noroff.dev/api/v1/holidaze/auth/register";
+
+    const options = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(form),
+    };
+
+    try {
+      const response = await fetch(url, options);
+      const json = await response.json();
+      if (!response.ok) {
+        const errorMessage = json.errors?.[0]?.message || "Failed to connect";
+        setErrorMessage(errorMessage);
+      } else {
+        setIsRegisterd(true);
+      }
+    } catch (error) {
+      console.error("Error during the fetch operation:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (isRegisterd) {
+    return (
+      <Container>
+        {form.email} <br /> Have been registerd
+        <div>
+          <PrimaryButton onClick={() => setIsClosing(true)}>
+            Log In
+          </PrimaryButton>
+          <PrimaryButton onClick={() => setIsClosing(true)}>Back</PrimaryButton>
+        </div>
+      </Container>
+    );
+  }
 
   return (
     <FormContainer>
@@ -88,6 +151,9 @@ const SingUpForm = () => {
           value={form.reTypePassword}
           onChange={handleChange}
         />
+        {errorMessage && (
+          <DisplayMessage msgType={"alert"}>{errorMessage}</DisplayMessage>
+        )}
         <FormButton style={{ marginTop: 40 }}>Sign Up</FormButton>
       </FormWrapper>
     </FormContainer>
