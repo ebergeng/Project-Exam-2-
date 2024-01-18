@@ -87,8 +87,8 @@ const ToggleSwitch = () => {
     localStorage.setItem("managerState", managerState);
     const root = document.documentElement;
     root.style.setProperty(
-      "--color-primary",
-      managerState ? "#52A49A" : "#003366",
+      "--color-modal",
+      managerState ? "#52A49A80" : "#00336680",
     );
     root.style.setProperty(
       "--color-secondary",

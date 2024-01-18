@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 
 const HeroBannerContainer = styled.div`
   display: grid;
-  padding: 25px;
+  padding: 25px 0px;
   grid-template-columns: ${({ numColumns }) => `repeat(${numColumns}, 1fr)`};
   justify-content: center;
   align-items: baseline;
@@ -45,6 +45,14 @@ const WaveEffectContainer = () => {
         case screenWidth < 1200:
           newNumElements = 12;
           newNumColumns = 6;
+          break;
+        case screenWidth < 1400:
+          newNumElements = 16;
+          newNumColumns = 8;
+          break;
+        case screenWidth > 1400:
+          newNumElements = 18;
+          newNumColumns = 9;
           break;
         default:
           // Ingen endringer hvis ingen av betingelsene er oppfylt

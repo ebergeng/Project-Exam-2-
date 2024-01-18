@@ -5,8 +5,8 @@ import ToggleSwitch from "./ToggleSwitch";
 const SignUpModalContent = () => {
   return (
     <>
-      <ToggleSwitch />
       <SignUpModalHeader />
+      <ToggleSwitch />
       <SingUpForm />
     </>
   );

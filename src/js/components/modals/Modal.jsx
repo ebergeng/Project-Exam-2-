@@ -9,7 +9,7 @@ const ModalOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: right;
   align-items: center;
@@ -38,7 +38,8 @@ const slideOut = keyframes`
 const ModalContent = styled(({ isClosing, ...divProps }) => (
   <div {...divProps} />
 ))`
-  background: var(--color-primary);
+  background: var(--color-modal);
+  backdrop-filter: blur(5px);
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
@@ -47,6 +48,9 @@ const ModalContent = styled(({ isClosing, ...divProps }) => (
   position: fixed;
   right: 0;
   top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   animation: ${(props) => (props.isClosing ? slideOut : slideIn)} 0.3s ease-out
     forwards;
 
