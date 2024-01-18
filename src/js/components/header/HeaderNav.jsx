@@ -19,12 +19,20 @@ const Li = styled.li`
   display: block;
 `;
 
+const Logo = styled.div`
+  color: var(--color-accent);
+  font-size: 28px;
+  padding: 5px;
+`;
+
 const HeaderNav = () => {
   const { isLoggedIn } = profileStore();
 
   return (
     <Nav>
-      <Link to={"/"}>LOGO</Link>
+      <Link to={"/"}>
+        <Logo>HolyDaize</Logo>
+      </Link>
       <Ul>
         {isLoggedIn ? (
           <>

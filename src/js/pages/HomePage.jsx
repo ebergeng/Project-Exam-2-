@@ -1,5 +1,11 @@
+import HeroBanner from "../components/hearobanner/HeroBanner";
+
 const HomePage = () => {
-  return <main>lols</main>;
+  return (
+    <>
+      <HeroBanner />
+    </>
+  );
 };
 
 export default HomePage;
